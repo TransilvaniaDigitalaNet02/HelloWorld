@@ -1,4 +1,6 @@
-﻿namespace HelloWorld
+﻿using System.Xml.Linq;
+
+namespace HelloWorld
 {
     internal class Program
     {
@@ -7,17 +9,34 @@
             Console.Write("Please enter your name:");
             string name = Console.ReadLine();
 
-            Console.Write("Please enter your age:");
-            string textRead = Console.ReadLine();
-            bool canConvert = int.TryParse(textRead, out int result);
-            if (canConvert)
+            int age = ReadNumberFromKeyboard("Please enter your age:");
+            Console.WriteLine("Hello, " + name + ", your age is: " + age);
+
+
+            int currentYear = ReadNumberFromKeyboard("Please enter current year:");
+            Console.WriteLine("current year is : " + currentYear);
+        }
+
+        static int ReadNumberFromKeyboard(string label)
+        {
+            bool canConvert = false;
+            while (!canConvert)
             {
-                Console.WriteLine("Hello, " + name + ", your age is: " + result);
+                Console.Write(label);
+                string textRead = Console.ReadLine();
+
+                canConvert = int.TryParse(textRead, out int result);
+                if (canConvert)
+                {
+                    return result;
+                }
+                else
+                {
+                    Console.WriteLine("The text '" + textRead + "' doesn't represent a number ");
+                }
             }
-            else
-            {
-                Console.WriteLine("The text '" + textRead + "' doesn't represent a number ");
-            }
+
+            return 0;
         }
     }
 }
